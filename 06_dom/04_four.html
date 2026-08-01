@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Four.js</title>
+</head>
+<body style="background-color: black; color: orange">
+    <ul class="language">
+        <li>JavaScript</li>
+    </ul>
+</body>
+<script>
+
+// Creation :-
+
+    function addLanguage (langName) {
+        const li = document.createElement('li')
+        li.innerHTML = `${langName}`
+        document.querySelector('.language')
+        .appendChild(li)
+
+    }
+    addLanguage("Python")
+    addLanguage("TypeScript")
+
+// Optimized way : No need to traverse from starting to end :-
+
+    function addOptiLanguage (langName) {
+        const li = document.createElement('li')
+        li.appendChild(document.createTextNode(langName))
+        document.querySelector('.language').appendChild(li)
+    }
+    addOptiLanguage("GoLang")
+    addOptiLanguage("Ruby")
+
+
+
+// Edit :-
+
+    function editChildLang (childNo, langName) {
+        const nthLang = document.querySelector(`li:nth-child(${childNo})`)
+        nthLang.innerHTML = `${langName}`
+    }
+    editChildLang(4, "C++")
+    
+// Optimized way :-
+
+    function editChildLangOpti (childNo, langName) {
+        const nthLang = document.querySelector(`li:nth-child(${childNo})`)
+        const newli = document.createElement('li')
+        newli.textContent = `${langName}`
+        nthLang.replaceWith(newli)
+    }
+    editChildLangOpti(2, "Mojo")
+
+
+// Remove :-
+
+    function removeLang (childNo) {
+        const lastLang = document.querySelector(`li:nth-child(${childNo})`)
+        lastLang.remove()
+    }
+    removeLang(4)
+
+</script>
+</html>
