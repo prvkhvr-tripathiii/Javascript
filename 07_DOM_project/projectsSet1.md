@@ -5,6 +5,8 @@
 
 # Solution Code
 
+# Color Changer
+
 ## Project 1 Solution
 
 ```javaScript
@@ -37,6 +39,9 @@ buttons.forEach((button) => {
  
 ```
 
+
+
+# BMI Calculator
 
 ## Project 2 Solution
 
@@ -83,6 +88,9 @@ form.addEventListener('submit', function(e) {
 ```
 
 
+
+# Digital Clock
+
 ## Project 3 Solution
 
 ```javaScript
@@ -96,6 +104,9 @@ setInterval(function(){                // Used to run a function continuously af
 
 ```
 
+
+
+# Guess the number Game
 
 ## Project 4 Solution
 
@@ -202,6 +213,83 @@ function newGame () {
     })
 }
 
+```
 
+
+
+# Keyboard Press
+
+## Project 5 Solution
+
+```javaScript
+
+const insert = document.querySelector('#insert')
+
+window.addEventListener('keydown', (e) => {
+    insert.innerHTML = `
+        <div class = color> 
+            <table>
+                <tr>
+                  <th>Key</th>
+                  <th>Keycode</th>
+                  <th>Code</th>
+                </tr>
+                <tr>
+                  <td>${e.key === " " ? "Space" : e.key}</td>
+                  <td>${e.keyCode}</td>
+                  <td>${e.code}</td>
+                </tr>
+            </table>
+        </div>
+    `
+})
+
+```
+
+
+
+
+# Unlimited Color
+
+## Project 6 Solution
+
+```javaScript
+
+const start = document.querySelector('#start');
+const stop = document.querySelector('#stop');
+
+const body = document.querySelector('body');
+
+const randomColor = function() {
+    const hex = '0123456789ABCDEF'
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += hex[parseInt(Math.random() * 16)];
+    }
+    return color;
+}
+
+function changeBgColor () {
+    body.style.backgroundColor = randomColor();
+}
+
+let intervalId;
+
+const startChangingColor = function () {
+    if (!intervalId) {
+        console.log("STARTED");
+        intervalId = setInterval(changeBgColor, 1000)
+    }
+}
+
+start.addEventListener('click', startChangingColor);
+
+stop.addEventListener('click', function () {
+    if (intervalId) {
+        console.log("STOPPED");
+        clearInterval(intervalId);
+        intervalId = null;
+    }
+})
 
 ```
