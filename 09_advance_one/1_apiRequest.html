@@ -1,0 +1,91 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body style="background-color: rgb(54, 0, 0); color: bisque;">
+    <div style="display: flex; flex-direction: column;">
+        <table>
+            <tr>
+                <th> Value </th>
+                <th> State </th>
+                <th> Description </th>
+            </tr>
+            <tr>
+                <td> 0 </td>
+                <td> UNSENT </td>
+                <td> Client has been created. open() not called yet. </td>
+            </tr>
+            <tr>
+                <td> 1 </td>
+                <td> OPENED </td>
+                <td> open() has been called. </td>
+            </tr>
+            <tr>
+                <td> 2 </td>
+                <td> HEADERS_RECEIVED </td>
+                <td> send() has been called, and headers and status are available. </td>
+            </tr>
+            <tr>
+                <td> 3 </td>
+                <td> LOADING</td>
+                <td> Downloading; responseText holds partial data. </td>
+            </tr>
+            <tr>
+                <td> 4 </td>
+                <td> DONE </td>
+                <td> The operation is complete. </td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <hr>
+        <button id="accessData" style="background-color: beige; color: indigo; border: 1px solid beige; border-radius: 10px; padding: 5px 10px; width: 150px; height: 40px">
+            Access Data
+        </button>
+
+        <div id="card" style="display: none; height: 500px; width: 350px; background-color: pink; color:rgb(54, 0, 0); border: 1px solid white; border-radius: 20px; justify-content: center; align-items: center; box-shadow: black 0px 0px 25px 10px; margin: auto;">
+            <img src="" style="height: 320px; width: 320px; margin: 15px; border-radius: 15px; box-shadow: rgb(255, 204, 213) 0px 0px 10px 10px;">
+            <h2 id="name" style="width: auto; padding: 10px; margin: 15px; margin-bottom: 5px;">Name: </h2>
+            <h3 id="followers" style="width: auto; padding: 10px; margin: 15px"> Followers :  </h3>
+        </div>
+
+
+    </div>
+  </body>
+  <script>
+    const image = document.querySelector('img')
+    const name = document.querySelector('#name')
+    const followers = document.querySelector('#followers')
+    const button = document.querySelector('#accessData')
+    
+
+    // XML HTTP Request
+
+    const requestUrl = 'https://api.github.com/users/spearHead521'     // API url
+    const xhr = new XMLHttpRequest()           // Step 1: creating XML HTTP Request
+    xhr.open('GET', requestUrl)             // Step 2: opening the request with GET
+
+    button.addEventListener('click', () => {            // functioning the button
+        xhr.send()           // Step 3: sending request to the server
+    })
+
+    xhr.onreadystatechange = function() {            // Step 4: functions on state change         // creating function on state change
+        if (xhr.readyState === 4) {
+            const data = JSON.parse(this.responseText)
+            const nameUrl = data.name;
+            const imageUrl = data.avatar_url;
+            const followersUrl = data.followers;
+            
+            image.setAttribute('src', imageUrl)
+            name.innerHTML = nameUrl
+            followers.innerHTML = `Followers : ${followersUrl}`;
+            document.querySelector('#card').style.display = ""
+        }
+    }
+
+  </script>
+
+  </html>

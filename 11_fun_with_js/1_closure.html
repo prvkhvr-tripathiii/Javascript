@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Closure aur Chai</title>
+</head>
+<body style="background-color: black; color: wheat">
+    <button id="orange">Orange</button>
+    <button id="green">Green</button>
+</body>
+<script>  // LEXICAL SCOPING
+
+    function init () {
+        let name = "Mozilla";
+
+        function displayName() {
+            console.log(name);
+        }
+        displayName();
+    }
+    init();
+
+    function outer () {
+        let username = "Hitesh";
+        // console.log("OUTER", secret);              // will throw an error because `secret` can't be accessed from here
+        function inner () {
+            let secret = "1234";
+            console.log("INNER:", username);
+        }
+        function innerTwo () {
+            console.log("SECOND INNER:", username);
+            // console.log(secret);              // will throw an error because `secret` can't be accessed from here
+        }
+        inner()
+        innerTwo()
+    }
+    outer()
+    // console.log("TOO OUTER:", username);              // will throw an error because `username` can't be accessed from here
+    
+
+
+    // CLOSURE
+
+    function makeFunction () {
+        const name = "Mozilla";
+        function displayName () {
+            console.log(name);
+        }
+        return displayName;
+    }
+
+    const myFunc = makeFunction();
+    myFunc();
+
+</script>
+
+<script>   // REAL WORLD PRACTICAL
+
+    document.getElementById('orange').onclick = function () {         // For 2 buttons, we can do that, but for 500 buttons,
+        document.body.style.backgroundColor = `orange`;     
+    }
+    document.getElementById('green').onclick = function () {          //  we can't as it will break programming law of repeatation
+        document.body.style.backgroundColor = `green`;
+    }
+
+    function clickHandler (color) {                                   // We'll be using this for multiple buttons
+        // document.body.style.backgroundColor = `${color}`               // we can't change it directly as onclick wants a function, but it was not returning a function
+
+        return function () {                                         // so, we used this and this is return a function
+            document.body.style.backgroundColor = `${color}`         // Use of Lexical Scoping & Closure here :- access to color for the return function,
+        }                                                            // as the function that is being returned is not only returning the function itself but its lexical scope tooooo
+    }
+    document.getElementById('orange').onclick = clickHandler("Orange")
+    document.getElementById('green').onclick = clickHandler("Green")
+
+
+</script>
+</html>
